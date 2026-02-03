@@ -1,6 +1,9 @@
+//* Snake Game Starts Here
 const canvas = document.querySelector("#canvas");
 const canvasSize = 600;
-const snakeSize = 30;
+const snakeSize = 20;
+let vX = snakeSize;
+let vY = 0;
 let snake = [
   {
     x: 30,
@@ -24,7 +27,33 @@ drawBoard = () => {
 };
 drawSnake = () => {
   ctx.fillStyle = "#686de0";
-  ctx.fillRect(0, 0, snakeSize, snakeSize);
+  snake.forEach((block) => {
+    ctx.fillRect(block.x, block.y, snakeSize, snakeSize);
+  });
 };
-drawBoard();
-drawSnake();
+moveSnake = () => {
+  const head = { x: snake[0].x + vX, y: snake[0].y + vY };
+  if (head.x > canvasSize) {
+    head.x = 0;
+  }
+  if (head.x < 0) {
+    head.x = canvasSize;
+  }
+  if (head.y > canvasSize) {
+    head.y = 0;
+  }
+  if (head.y < 0) {
+    head.y = canvasSize;
+  }
+  snake.pop();
+  snake.unshift(head);
+//   console.log(snake);
+};
+
+// setInterval(() => {
+//   drawBoard();
+//   moveSnake();
+//   drawSnake();
+// }, 1000);
+
+//* Snake Game Ends Here
